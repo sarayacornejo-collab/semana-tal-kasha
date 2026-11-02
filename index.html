@@ -380,7 +380,7 @@ const ALM=[
 ["2026-12-22","ofi",0,"Recursos aparecen +150% en el puerto de Madrestam","Pescado empanado",40,41269],
 ["2026-12-23","ofi",0,"Cazadores: +125% carne sabrosa","Carne tierna",6,63483]
 ];
-const NOTE={"Capa Bilidad":"Es equipo: cuesta juntar 25 sueltas, revísalo temprano","Diente de cervelicoso":"Esta semana lo farmeas el jueves: no lo compres"};
+const NOTE={"Capa Bilidad":"Es equipo: cuesta juntar 25 sueltas, revísalo temprano","Diente de cervelicoso":"Esta semana lo farmeas el jueves: no lo compres","Linterna de tritáceo":"La farmeas el jueves 12: no la compres"};
 const ALMT={k:"alm",t:"Entregar ofrenda, todos los PJ",m:30,w:"30 min",id:"alm"};
 const mis=()=>({k:"mis",t:"Checklist silvestre",m:120,w:"tarde · 2 h",id:"mis"});
 const CRI=()=>({k:"cri",t:"Gestión completa de crianza",m:60,w:"1 h",id:"cri",sub:["Llenar cercados de carburante","Comprar lo que falte","Hacer las cruzas","Ordenar dragopavos","Cazar monturas si faltan"]});
@@ -407,13 +407,14 @@ const WEEKS={
   5:[ALMT,{k:"kam",t:"Seguir farmeando con bonus",m:180,w:"antes de verte con tu novia",id:"frm2"},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer2"}],
   6:[ALMT,OFR(),{k:"cri",t:"Cruzas con bonus activo",m:30,w:"tarde-noche",id:"crz"}]
  },
- "2026-11-09":{6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 24 nov al 8 dic",m:45,w:"antes de que suban",id:"cof3"}]},
+ "2026-11-09":{3:[ALMT,{k:"alm",t:"Farmear 50 Linternas de tritáceo",m:60,w:"botín +50% · 1 h",id:"lin",sub:["Cazar Tritáceos y Brethones"]},mis()],6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 24 nov al 8 dic",m:45,w:"antes de que suban",id:"cof3"}]},
  "2026-11-30":{6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 9 al 23 dic",m:45,w:"antes de que suban",id:"cof4"}]}
 };
 const SPECIAL=[
  {d:"2026-11-04",f:"Se busca +200% hoy: buen día para uno",hide:1},
  {d:"2026-11-05",f:"Retos +150% en la Cervecería: saca aquí los dientes",hide:1},
  {d:"2026-11-06",l:"6–8 nov",t:"Bonus de oficio, XP y drop",f:"Solo esta semana sin Sueños Infinitos. Compra temprano: los recursos van a subir"},
+ {d:"2026-11-12",f:"Botín +50% con trithones: saca aquí las linternas",hide:1},
  {d:"2026-11-10",l:"10 nov",t:"Otoul y monturas Precoz",f:"Otoul: haz hoy las cruzas de columna más caras"},
  {d:"2026-11-26",l:"26 nov",t:"Doble botín en mazmorras",f:"Buen día para farmear mazmorras con el team"},
  {d:"2026-12-10",l:"10 dic",t:"Foya: fase de amor ×2",f:"Foya: programa la fase de amor para hoy"},
