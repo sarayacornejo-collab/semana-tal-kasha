@@ -174,7 +174,7 @@ main{display:grid;gap:18px;padding-block:18px 40px}
 .big:hover{background:#ffb22e}
 .big.on{background:#2e2a27;color:#ffb22e;box-shadow:inset 0 0 0 1px #f29c06}
 .ofr{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:0}
-.ofr li{display:grid;grid-template-columns:62px 62px minmax(0,1fr) 110px 130px 26px;gap:12px;align-items:center;padding:9px 6px;border-top:1px solid var(--line)}
+.ofr li{display:grid;grid-template-columns:62px 62px minmax(0,1fr) 150px 130px 26px;gap:12px;align-items:center;padding:9px 6px;border-top:1px solid var(--line)}
 .ofr li:first-child{border-top:0}
 .ofr li.done{opacity:.55}
 .ofr .dd{font:400 .95rem var(--f-d);line-height:1.1}
@@ -186,7 +186,9 @@ main{display:grid;gap:18px;padding-block:18px 40px}
 .nn{font:600 1.5rem/1 var(--f-m);color:var(--orange);text-align:right}
 .nn small{display:block;font:500 .68rem var(--f-m);color:var(--faint);margin-top:3px}
 .pc{text-align:right;font:600 .95rem var(--f-m)}
-.pc small{display:block;font:500 .68rem var(--f-b);color:var(--faint)}
+.pc small{font:500 .68rem var(--f-b);color:var(--faint)}
+.pc .acc{color:var(--orange)}
+.pc .per{font-size:.82rem;margin-top:3px;color:var(--mute)}
 .month{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .mh{font:600 .66rem var(--f-b);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:0 4px}
 .mc{border:1px solid var(--line);background:color-mix(in srgb,var(--c) 9%,var(--panel));border-radius:9px;padding:6px 7px;text-align:left;display:grid;grid-template-columns:auto minmax(0,1fr);gap:0 6px;font-size:.72rem;line-height:1.22;min-height:76px;align-content:start}
@@ -223,7 +225,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
 @media (max-width:760px){
   .ofr li{grid-template-columns:50px minmax(0,1fr) auto 26px;gap:6px 10px}
   .ofr .dd{grid-column:1/-1;display:flex;gap:8px;align-items:baseline}
-  .ofr .pc{grid-column:2/4;text-align:left}.pc small{display:inline;margin-left:4px}
+  .ofr .pc{grid-column:2/4;text-align:left}
   .ofr .nn{grid-row:2;grid-column:3}
   .ofr .copy{grid-row:2;grid-column:2}.ofr .slot{grid-row:2}.ofr .cb{grid-row:2;grid-column:4}
   .month{grid-template-columns:repeat(2,minmax(0,1fr))}.mh,.mc.empty{display:none}
@@ -502,13 +504,14 @@ const bStart=b=>new Date(b[0]+"T12:00:00"), bEnd=b=>addD(bStart(b),b[1]-1);
 const blockOf=d=>BLOCKS.find(b=>d>=b[0]&&d<=iso(bEnd(b)));
 let aw=(()=>{const td=iso(new Date());for(const b of BLOCKS){if(iso(bEnd(b))<td)continue;const st=get("tk-compra-"+b[0],{});for(let i=0;i<b[1];i++)if(!st[iso(addD(bStart(b),i))])return b[0]}return BLOCKS[BLOCKS.length-1][0]})();
 const pjIn=el("input");pjIn.type="number";pjIn.min=1;pjIn.max=60;pjIn.id="pj";pjIn.value=get("tk-pj",25);
+const ctIn=el("input");ctIn.type="number";ctIn.min=1;ctIn.max=20;ctIn.id="cuentas";ctIn.value=get("tk-cuentas",5);
 const lots=n=>{const o=[];[1000,100,10].forEach(s=>{const q=Math.floor(n/s);if(q){o.push(q+"×"+s);n-=q*s}});if(n)o.push(n+"×1");return o.join(" + ")};
 function syncAlm(){const b=blockOf(iso(wk));if(b){aw=b[0];ofr()}}
 function ofr(){
   const c=$("wchips");c.textContent="";
   BLOCKS.forEach(x=>{const w=x[0],b=el("button","chip",short(bStart(x))+" al "+short(bEnd(x)));b.type="button";b.setAttribute("aria-pressed",w===aw);b.onclick=()=>{aw=w;ofr()};c.append(b)});
-  const pl=el("label","pj","Personajes");pl.append(pjIn);c.append(pl);
-  const pj=+pjIn.value||0,key="tk-compra-"+aw,st=get(key,{}),u=$("ofr");u.textContent="";
+  const pl=el("label","pj","Personajes");pl.append(pjIn);const cl=el("label","pj","Cuentas");cl.style.marginLeft="0";cl.append(ctIn);c.append(pl,cl);
+  const pj=+pjIn.value||0,ct=+ctIn.value||1,key="tk-compra-"+aw,st=get(key,{}),u=$("ofr");u.textContent="";
   const m=new Date(aw+"T12:00:00");let done=0;
   const days=BLOCKS.find(b=>b[0]===aw)[1];
   for(let i=0;i<days;i++){
@@ -517,7 +520,7 @@ function ofr(){
     const cp=el("button","copy");cp.type="button";cp.title="Copiar nombre";cp.append(a[4]);cp.append(el("span",null,"clic para copiar"));
     cp.onclick=()=>copy(a[4]);
     const w=el("div");w.append(cp);if(NOTE[a[4]])w.append(el("small","warn",NOTE[a[4]]));
-    const pc=el("div","pc",a[5]+" ");pc.append(el("small",null,"por personaje"));
+    const pc=el("div","pc");const acc=el("div","acc",String(Math.ceil(a[5]*pj/ct)).replace(/\B(?=(\d{3})+$)/g,".")+" ");acc.append(el("small",null,"por cuenta"));const per=el("div","per",a[5]+" ");per.append(el("small",null,"por personaje"));pc.append(acc,per);
     const nn=el("div","nn",String(a[5]*pj).replace(/\B(?=(\d{3})+$)/g,"."));nn.append(el("small",null,lots(a[5]*pj)));
     const ch=el("input","cb");ch.type="checkbox";ch.checked=!!st[a[0]];ch.setAttribute("aria-label","Comprado: "+a[4]);ch.style.setProperty("--c","var(--t-alm)");
     ch.onchange=()=>{st[a[0]]=ch.checked;put(key,st);li.classList.toggle("done",ch.checked);tally()};
@@ -527,7 +530,7 @@ function ofr(){
   const tally=()=>{const x=[...u.querySelectorAll(".cb")].filter(i=>i.checked).length;$("adone").textContent=x;$("adays").textContent=days;$("abar").style.width=x/days*100+"%"};tally();
   month();
 }
-pjIn.addEventListener("input",()=>{put("tk-pj",+pjIn.value||0);const f=document.activeElement===pjIn;ofr();if(f){pjIn.focus()}});
+[[pjIn,"tk-pj"],[ctIn,"tk-cuentas"]].forEach(([n,k])=>n.addEventListener("input",()=>{put(k,+n.value||0);ofr();n.focus()}));
 function month(){
   const g=$("month");g.textContent="";
   DIAS.forEach(d=>g.append(el("div","mh",d.slice(0,3))));
