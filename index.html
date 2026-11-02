@@ -357,7 +357,7 @@ const ALM=[
 ["2026-11-29","ofi",0,"Mineros: +125% kobalto","Kobalto",30,39077],
 ["2026-11-30","ret",0,"Retos +125%: gélifux","Lana de yokai gélifux",3,11339]
 ];
-const NOTE={"Capa Bilidad":"Es equipo: cuesta juntar 25 sueltas, revísalo temprano"};
+const NOTE={"Capa Bilidad":"Es equipo: cuesta juntar 25 sueltas, revísalo temprano","Fibra criminal":"Esta semana la farmeas: cae de Maestro boletus y Maestro Champavor"};
 const ALMT={k:"alm",t:"Entregar ofrenda, todos los PJ",m:30,w:"30 min",id:"alm"};
 const mis=()=>({k:"mis",t:"Checklist silvestre",m:120,w:"tarde · 2 h",id:"mis"});
 const CRI=()=>({k:"cri",t:"Gestión completa de crianza",m:60,w:"1 h",id:"cri",sub:["Llenar cercados de carburante","Comprar lo que falte","Hacer las cruzas","Ordenar dragopavos","Cazar monturas si faltan"]});
@@ -378,14 +378,14 @@ const WEEKS={
  "2026-11-02":{
   title:"Ajustada por el bonus",
   0:[ALMT,{k:"alm",t:"Comprar ofrendas de esta semana",m:45,w:"mañana o tarde",id:"cof"},CRI(),mis()],
-  2:[ALMT,mis(),{k:"mag",t:"Prioridad: dejar listo el team para el bonus",m:60,w:"1 h",id:"pre",sub:["Revisión breve de sets de prospección","Subir mascotas al nivel 100"]},KAM(["Comprar lo que vas a craftear con el bonus"])],
+  2:[ALMT,{k:"alm",t:"Farmear 25 Fibras criminales",m:60,w:"Se busca +200% · 1 h",id:"fib",sub:["Cazar Maestro boletus"]},mis(),{k:"mag",t:"Prioridad: dejar listo el team para el bonus",m:60,w:"1 h",id:"pre",sub:["Revisión breve de sets de prospección","Subir mascotas al nivel 100"]},KAM(["Comprar lo que vas a craftear con el bonus"])],
   4:[ALMT,{k:"cri",t:"Apenas despiertes: oficios con bonus",m:120,w:"desde las 07:00 · 2 h",id:"bon",sub:["Aplicar todas las recetas","Comprar lo que falte antes de que suba","Subir zapatero, del 100 al 180","Subir criador","Llenar todos los cercados"]},{k:"kam",t:"Farm con bonus de drop y el team",m:240,w:"tarde · 4 h",id:"frm",sub:["Buscar anomalía con buena zona","Si no hay, zona 200"]},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer"}],
   5:[ALMT,{k:"kam",t:"Seguir farmeando con bonus",m:180,w:"antes de verte con tu novia",id:"frm2"},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer2"}],
   6:[ALMT,OFR(),{k:"cri",t:"Cruzas con bonus activo",m:30,w:"tarde-noche",id:"crz"}]
  }
 };
 const SPECIAL=[
- {d:"2026-11-04",f:"Se busca +200% hoy: buen día para uno",hide:1},
+ {d:"2026-11-04",f:"Se busca +200% hoy: aprovecha para sacar las fibras",hide:1},
  {d:"2026-11-06",l:"6–8 nov",t:"Bonus de oficio, XP y drop",f:"Solo esta semana sin Sueños Infinitos. Compra temprano: los recursos van a subir"},
  {d:"2026-11-10",l:"10 nov",t:"Otoul y monturas Precoz",f:"Otoul: haz hoy las cruzas de columna más caras"},
  {d:"2026-11-26",l:"26 nov",t:"Doble botín en mazmorras",f:"Buen día para farmear mazmorras con el team"},
