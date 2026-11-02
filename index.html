@@ -286,15 +286,15 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
       <section class="card">
         <div class="almhead">
           <span class="slot lg" id="almslot"></span>
-          <div><h2>Compra de ofrendas</h2><p>Haz clic en el nombre para copiarlo, pégalo en el mercadillo y compra la cantidad de la derecha.</p></div>
+          <div><h2>Compra de ofrendas</h2><p>Compra cada 15 días, antes de que suban. Clic en el nombre para copiarlo y compra la cantidad de la derecha.</p></div>
           <button class="big" id="almrun" type="button">Iniciar cronómetro</button>
         </div>
         <div class="chips" id="wchips"></div>
         <ul class="ofr" id="ofr"></ul>
-        <div class="wmeter" style="margin-top:12px"><div class="bar"><i id="abar"></i></div><span class="cnt"><span id="adone">0</span> de 7 compradas</span></div>
+        <div class="wmeter" style="margin-top:12px"><div class="bar"><i id="abar"></i></div><span class="cnt"><span id="adone">0</span> de <span id="adays">7</span> compradas</span></div>
       </section>
       <section class="card">
-        <h2>Bonus de noviembre</h2>
+        <h2>Bonus de noviembre y diciembre</h2>
         <ul class="leg" id="leg"></ul>
         <div class="month" id="month"></div>
       </section>
@@ -307,7 +307,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
       <section class="card"><div class="hh"><h2 class="sect">Sesiones medidas</h2><button class="ghost" id="rclear" type="button">Borrar registro</button></div><div class="tw"><table><thead><tr><th>Fecha</th><th>Actividad</th><th>Duración</th><th>Plan</th></tr></thead><tbody id="rrows"></tbody></table></div></section>
     </div>
   </div>
-  <footer>Rutina base, no regla. Tu avance se guarda en este navegador. Datos de Almanax al 2 de noviembre de 2026. Íconos de DofusDB y dofusdude.</footer>
+  <footer>Rutina base, no regla. Tu avance se guarda en este navegador. Almanax cargado hasta el 23 de diciembre de 2026. Íconos de DofusDB y dofusdude.</footer>
 </main>
 <div class="toast" id="toast" role="status"></div>
 
@@ -355,14 +355,37 @@ const ALM=[
 ["2026-11-27","ofi",0,"Leñadores: +125% madera de tejo","Madera de tejo",40,38094],
 ["2026-11-28","xp",0,"XP +50%: sulfuriosos","Residuo de solfatara",3,51471],
 ["2026-11-29","ofi",0,"Mineros: +125% kobalto","Kobalto",30,39077],
-["2026-11-30","ret",0,"Retos +125%: gélifux","Lana de yokai gélifux",3,11339]
+["2026-11-30","ret",0,"Retos +125%: gélifux","Lana de yokai gélifux",3,11339],
+["2026-12-01","xp",0,"XP +50%: ghuls","Ojo de ghúligan",2,109617],
+["2026-12-02","ofi",0,"XP de oficio +50%: manitas, herreros, escultores y fabricantes","Escudo del girasol salvaje",1,82155],
+["2026-12-03","esp",0,"Reto extra: lago helado","Piel de barrigüino",4,59049],
+["2026-12-04","ofi",0,"Leñadores: +100% madera","Madera de olivioleta",40,38481],
+["2026-12-05","xp",0,"XP +75%: cantera de Astrub","Casco de martóguiz",6,25149],
+["2026-12-06","esp",0,"Kolichas +100% en el koliseo","Carbón",6,39075],
+["2026-12-07","bot",0,"Botín +50%: koalaks y koalaks salvajes","Tela de Dok Alako",6,55720],
+["2026-12-08","ofi",0,"Alquimistas: +200% campanilla de invierno","Campanilla de invierno",10,35635],
+["2026-12-09","xp",0,"XP +100% en Despensa de la Rata Blanca","Pelo de rata bontariana",2,165035],
+["2026-12-10","cri",1,"Cercados: el efecto de las dragonalgas se duplica","Cola de dragopavo salvaje",6,65594],
+["2026-12-11","ofi",1,"Zapateros: 15% de ahorrar ingredientes","Pacbotas",2,11206],
+["2026-12-12","esp",0,"Misión repetible cerca de las puertas de Brakmar","Pócima de ciudad: Brakmar",3,12145],
+["2026-12-13","ofi",0,"Minerales de todo tipo aparecen +100%","Dolomita",30,39110],
+["2026-12-14","ret",0,"Retos +150% en Cámara de Tal Kasha","Párpado dorado de rykaón",1,15953],
+["2026-12-15","bot",0,"Botín +75%: llanura de los puerkazos","Cuero de puerkazo",6,56429],
+["2026-12-16","esp",0,"Reto extra: isla de Nawidad","Papel de regalo de Nawidad escarlata",2,154000],
+["2026-12-17","ofi",0,"Pescadores: +125% anguila y dorada exploradora","Anguila",40,41407],
+["2026-12-18","ret",1,"Retos +150% en todas las mazmorras","Suerte de Zurcarák",1,9032],
+["2026-12-19","xp",0,"XP +50%: isla de Nawidad","Copo de nieve",2,153007],
+["2026-12-20","ofi",0,"Mineros: 10% de fabricar un segundo objeto","Ebonita",1,40658],
+["2026-12-21","esp",0,"Reto extra: cementerio de Amakna y sus criptas","Colmillo vampiresco",6,47432],
+["2026-12-22","ofi",0,"Recursos aparecen +150% en el puerto de Madrestam","Pescado empanado",40,41269],
+["2026-12-23","ofi",0,"Cazadores: +125% carne sabrosa","Carne tierna",6,63483]
 ];
 const NOTE={"Capa Bilidad":"Es equipo: cuesta juntar 25 sueltas, revísalo temprano","Diente de cervelicoso":"Esta semana lo farmeas el jueves: no lo compres"};
 const ALMT={k:"alm",t:"Entregar ofrenda, todos los PJ",m:30,w:"30 min",id:"alm"};
 const mis=()=>({k:"mis",t:"Checklist silvestre",m:120,w:"tarde · 2 h",id:"mis"});
 const CRI=()=>({k:"cri",t:"Gestión completa de crianza",m:60,w:"1 h",id:"cri",sub:["Llenar cercados de carburante","Comprar lo que falte","Hacer las cruzas","Ordenar dragopavos","Cazar monturas si faltan"]});
 const KAM=(x=[])=>({k:"kam",t:"Cosecha de kamas",m:60,w:"1 h",id:"kam",subt:"Opcionales, según cómo venga el día",sub:["Cobrar almanichas de todos los PJ","Revisar inventarios y pasar todo al main","Subir recursos, consumibles y equipables al mercadillo","Craftear equipables para romper o maguear","Encargos de gremio","Mercenario en búsqueda de grupo",...x]});
-const OFR=()=>({k:"alm",t:"Preparar ofrendas de la semana y repartirlas",m:60,w:"tarde-noche · 1 h",id:"ofr"});
+const OFR=()=>({k:"alm",t:"Repartir ofrendas de la semana entre los PJ",m:60,w:"tarde-noche · 1 h",id:"ofr"});
 /* Rutina base: lunes a domingo */
 const BASE=[
   [ALMT,CRI(),mis()],
@@ -377,13 +400,15 @@ const BASE=[
 const WEEKS={
  "2026-11-02":{
   title:"Ajustada por el bonus",
-  0:[ALMT,{k:"alm",t:"Comprar ofrendas de esta semana",m:45,w:"mañana o tarde",id:"cof"},CRI(),mis()],
+  0:[ALMT,{k:"alm",t:"Comprar ofrendas de esta semana",m:45,w:"mañana o tarde",id:"cof"},{k:"alm",t:"Comprar ofrendas del 9 al 23 nov",m:45,w:"antes de que suban",id:"cof2"},CRI(),mis()],
   2:[ALMT,mis(),{k:"mag",t:"Prioridad: dejar listo el team para el bonus",m:60,w:"1 h",id:"pre",sub:["Revisión breve de sets de prospección","Subir mascotas al nivel 100"]},KAM(["Comprar lo que vas a craftear con el bonus"])],
   3:[ALMT,{k:"maz",t:"Farmear 50 Dientes de cervelicoso",m:60,w:"Cervecería del Rey Dazahk · 1 h",id:"die",sub:["Hacer los retos en cada combate"]},mis()],
   4:[ALMT,{k:"cri",t:"Apenas despiertes: oficios con bonus",m:120,w:"desde las 07:00 · 2 h",id:"bon",sub:["Aplicar todas las recetas","Comprar lo que falte antes de que suba","Subir zapatero, del 100 al 180","Subir criador","Llenar todos los cercados"]},{k:"kam",t:"Farm con bonus de drop y el team",m:240,w:"tarde · 4 h",id:"frm",sub:["Buscar anomalía con buena zona","Si no hay, zona 200"]},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer"}],
   5:[ALMT,{k:"kam",t:"Seguir farmeando con bonus",m:180,w:"antes de verte con tu novia",id:"frm2"},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer2"}],
   6:[ALMT,OFR(),{k:"cri",t:"Cruzas con bonus activo",m:30,w:"tarde-noche",id:"crz"}]
- }
+ },
+ "2026-11-09":{6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 24 nov al 8 dic",m:45,w:"antes de que suban",id:"cof3"}]},
+ "2026-11-30":{6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 9 al 23 dic",m:45,w:"antes de que suban",id:"cof4"}]}
 };
 const SPECIAL=[
  {d:"2026-11-04",f:"Se busca +200% hoy: buen día para uno",hide:1},
@@ -471,19 +496,22 @@ $("wprev").onclick=()=>{wk=addD(wk,-7);board();syncAlm()};
 $("wnext").onclick=()=>{wk=addD(wk,7);board();syncAlm()};
 $("wnow").onclick=()=>{wk=monOf(new Date());board();syncAlm()};
 /* Almanax */
-const WEEKLIST=["2026-11-02","2026-11-09","2026-11-16","2026-11-23"];
-let aw=WEEKLIST.includes(iso(monOf(new Date())))?iso(monOf(new Date())):WEEKLIST[0];
+const BLOCKS=[["2026-11-02",7],["2026-11-09",15],["2026-11-24",15],["2026-12-09",15]]; /* inicio, días */
+const bStart=b=>new Date(b[0]+"T12:00:00"), bEnd=b=>addD(bStart(b),b[1]-1);
+const blockOf=d=>BLOCKS.find(b=>d>=b[0]&&d<=iso(bEnd(b)));
+let aw=(()=>{const td=iso(new Date());for(const b of BLOCKS){if(iso(bEnd(b))<td)continue;const st=get("tk-compra-"+b[0],{});for(let i=0;i<b[1];i++)if(!st[iso(addD(bStart(b),i))])return b[0]}return BLOCKS[BLOCKS.length-1][0]})();
 const pjIn=el("input");pjIn.type="number";pjIn.min=1;pjIn.max=60;pjIn.id="pj";pjIn.value=get("tk-pj",25);
 const lots=n=>{const o=[];[1000,100,10].forEach(s=>{const q=Math.floor(n/s);if(q){o.push(q+"×"+s);n-=q*s}});if(n)o.push(n+"×1");return o.join(" + ")};
-function syncAlm(){const k=iso(wk);if(WEEKLIST.includes(k)){aw=k;ofr()}}
+function syncAlm(){const b=blockOf(iso(wk));if(b){aw=b[0];ofr()}}
 function ofr(){
   const c=$("wchips");c.textContent="";
-  WEEKLIST.forEach(w=>{const d=new Date(w+"T12:00:00"),b=el("button","chip",short(d)+" al "+short(addD(d,6)));b.type="button";b.setAttribute("aria-pressed",w===aw);b.onclick=()=>{aw=w;ofr()};c.append(b)});
+  BLOCKS.forEach(x=>{const w=x[0],b=el("button","chip",short(bStart(x))+" al "+short(bEnd(x)));b.type="button";b.setAttribute("aria-pressed",w===aw);b.onclick=()=>{aw=w;ofr()};c.append(b)});
   const pl=el("label","pj","Personajes");pl.append(pjIn);c.append(pl);
   const pj=+pjIn.value||0,key="tk-compra-"+aw,st=get(key,{}),u=$("ofr");u.textContent="";
   const m=new Date(aw+"T12:00:00");let done=0;
-  DIAS.forEach((n,i)=>{
-    const a=alm(iso(addD(m,i)));if(!a)return;
+  const days=BLOCKS.find(b=>b[0]===aw)[1];
+  for(let i=0;i<days;i++){
+    const n=DIAS[(addD(m,i).getDay()+6)%7],a=alm(iso(addD(m,i)));if(!a)continue;
     const li=el("li"),dd=el("div","dd",n);dd.append(el("small",null,short(addD(m,i))));
     const cp=el("button","copy");cp.type="button";cp.title="Copiar nombre";cp.append(a[4]);cp.append(el("span",null,"clic para copiar"));
     cp.onclick=()=>copy(a[4]);
@@ -494,8 +522,8 @@ function ofr(){
     ch.onchange=()=>{st[a[0]]=ch.checked;put(key,st);li.classList.toggle("done",ch.checked);tally()};
     li.classList.toggle("done",ch.checked);if(ch.checked)done++;
     li.append(dd,slot(DU+a[6]+"-64.png","--t-alm","lg"),w,pc,nn,ch);u.append(li);
-  });
-  const tally=()=>{const x=[...u.querySelectorAll(".cb")].filter(i=>i.checked).length;$("adone").textContent=x;$("abar").style.width=x/7*100+"%"};tally();
+  }
+  const tally=()=>{const x=[...u.querySelectorAll(".cb")].filter(i=>i.checked).length;$("adone").textContent=x;$("adays").textContent=days;$("abar").style.width=x/days*100+"%"};tally();
   month();
 }
 pjIn.addEventListener("input",()=>{put("tk-pj",+pjIn.value||0);const f=document.activeElement===pjIn;ofr();if(f){pjIn.focus()}});
@@ -508,7 +536,7 @@ function month(){
   ALM.forEach(a=>{
     const c=el("button","mc"+(a[2]?" imp":"")+(a[0]===td?" now":""));c.type="button";c.style.setProperty("--c","var("+B[a[1]][1]+")");
     c.append(el("b",null,String(+a[0].slice(8))),el("small",null,B[a[1]][0]),el("span",null,a[3]));
-    c.onclick=()=>{const w=iso(monOf(new Date(a[0]+"T12:00:00")));if(WEEKLIST.includes(w)){aw=w;ofr();window.scrollTo({top:0,behavior:"smooth"})}};
+    c.onclick=()=>{const x=blockOf(a[0]);if(x){aw=x[0];ofr();window.scrollTo({top:0,behavior:"smooth"})}};
     g.append(c);
   });
 }
