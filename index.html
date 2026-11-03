@@ -351,7 +351,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
   body{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
   .top .tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(6,1fr);gap:0;background:var(--hero);border-top:2px solid #89b820;padding:4px 2px calc(4px + env(safe-area-inset-bottom,0px))}
   .tab{justify-content:center;padding:8px 1px;font-size:.68rem;text-align:center}
-  #ovbtn,#notif{display:none}
+  #ovbtn,#notif,#invbtn{display:none}
   h1{font-size:1rem}
   .today .shell{padding-block:12px;gap:10px}
   .today h2{font-size:1.25rem;margin-bottom:8px}
@@ -403,6 +403,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
   </nav>
   <span class="spacer"></span>
   <div class="run" id="run" hidden><span id="runl"></span><b id="runt">00:00</b><button class="tbtn hot" id="runs" type="button">Detener</button></div>
+  <button class="tbtn" id="invbtn" type="button">Invitador de grupo</button>
   <button class="tbtn hot" id="ovbtn" type="button">Overlay</button>
   <button class="tbtn" id="notif" type="button">Activar avisos</button>
   <button class="tbtn" id="theme" type="button">Tema: auto</button>
@@ -727,7 +728,9 @@ async function openOverlay(){
 function ovRender(){
   if(!ov)return;const m=ov.document.getElementById("ovm");if(!m)return;m.textContent="";
   const d=new Date(),ds=iso(d),mon=monOf(d),ms=iso(mon),di=(d.getDay()+6)%7,st=get(skey(mon),{}),ts=tasksOf(mon,di);
-  const h=el("div","ovh");const pn=pending().length;h.append(el("b",null,DIAS[di]+" "+short(d)),el("span",null,pn?pn+(pn===1?" pendiente":" pendientes"):"Día completo"));m.append(h);
+  const h=el("div","ovh");const pn=pending().length;const inv=el("button","tbtn","Invitador");inv.type="button";inv.style.cssText="padding:2px 8px;font-size:.7rem";
+  inv.onclick=async()=>{try{await ov.navigator.clipboard.writeText(INVITE);inv.textContent="Copiado"}catch(e){inv.textContent="No pude copiar"}setTimeout(()=>{inv.textContent="Invitador"},1400)};
+  h.append(el("b",null,DIAS[di]+" "+short(d)),inv,el("span",null,pn?pn+(pn===1?" pendiente":" pendientes"):"Día completo"));m.append(h);
   if(R){const r=el("div","ovrun"),l=el("span",null,T[R.k].n+" "),b=el("b",null,"00:00"),s=el("button","tbtn hot","Detener");b.id="ovclock";s.type="button";s.onclick=stop;l.append(b);r.append(l,s);m.append(r)}
   const a=alm(almDay());if(a){const b=el("div","ovbon");b.style.setProperty("--c","var("+B[a[1]][1]+")");b.append(slot(DU+a[6]+"-64.png",B[a[1]][1],"sm"),el("span",null,a[3]));m.append(b)}
   const ec=entCount(ed),box=el("section","ovbox"),t=el("h3"),ch=el("div","ovchips");
@@ -968,6 +971,8 @@ function tick(){
 }
 $("runs").onclick=stop;
 $("ovbtn").onclick=openOverlay;
+const INVITE="/invite bloody-rabbit ; /invite etilya ; /invite sra-fresia ; /invite natyss";
+$("invbtn").onclick=()=>copy(INVITE);
 if(!window.documentPictureInPicture)$("ovbtn").hidden=true;
 $("almrun").onclick=()=>toggle({k:"alm",t:"Compra de ofrendas",m:45,tid:"almanax"});
 function log(){
