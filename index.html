@@ -259,6 +259,17 @@ main{display:grid;gap:18px;padding-block:18px 40px}
 .ext:hover{color:var(--orange);text-decoration:underline}
 .ext .slot{vertical-align:top}
 .ring .ext{display:block;z-index:2}
+.zpop{position:fixed;z-index:40;top:calc(env(safe-area-inset-top,0px) + 58px);right:max(16px,calc(50vw - 764px));width:min(360px,calc(100vw - 32px));background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 14px 40px rgb(0 0 0 / .45);padding:10px}
+.zq{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:8px;background:var(--sunk);color:var(--ink);padding:7px 10px;font:500 .9rem var(--f-b)}
+.zlist{max-height:min(60vh,430px);overflow-y:auto;margin-top:6px;display:grid;gap:1px}
+.zh{font:600 .62rem var(--f-b);letter-spacing:.1em;text-transform:uppercase;color:var(--faint);padding:7px 6px 2px}
+.zi{display:flex;justify-content:space-between;gap:10px;border:0;background:none;border-radius:7px;padding:5px 6px;text-align:left;font-size:.85rem;font-weight:500}
+.zi:hover,.zi:focus-visible{background:var(--sunk)}
+.zi b{font:600 .76rem var(--f-m);color:var(--orange);white-space:nowrap}
+.zn{margin:8px 6px;color:var(--mute);font-size:.84rem}
+.ovb details>summary{cursor:pointer;font-size:.8rem;font-weight:600}
+.ovb .zbox{margin-top:6px}
+.ovb .zlist{max-height:230px}
 .flag{margin:2px 8px 6px;padding:6px 9px;border-radius:8px;background:color-mix(in srgb,var(--orange) 12%,transparent);border:1px dashed var(--orange);font-size:.75rem;line-height:1.3}
 .flag b{color:var(--orange)}
 .dbon{margin-top:auto;display:grid;grid-template-columns:30px minmax(0,1fr);gap:8px;align-items:center;padding:8px 10px;border-top:1px solid var(--line);background:color-mix(in srgb,var(--c) 11%,transparent);font-size:.74rem;line-height:1.28}
@@ -351,7 +362,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
   body{padding-bottom:calc(58px + env(safe-area-inset-bottom,0px))}
   .top .tabs{position:fixed;left:0;right:0;bottom:0;z-index:25;display:grid;grid-template-columns:repeat(6,1fr);gap:0;background:var(--hero);border-top:2px solid #89b820;padding:4px 2px calc(4px + env(safe-area-inset-bottom,0px))}
   .tab{justify-content:center;padding:8px 1px;font-size:.68rem;text-align:center}
-  #ovbtn,#notif,#invbtn{display:none}
+  #ovbtn,#notif,#invbtn,#zapbtn{display:none}
   h1{font-size:1rem}
   .today .shell{padding-block:12px;gap:10px}
   .today h2{font-size:1.25rem;margin-bottom:8px}
@@ -403,6 +414,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
   </nav>
   <span class="spacer"></span>
   <div class="run" id="run" hidden><span id="runl"></span><b id="runt">00:00</b><button class="tbtn hot" id="runs" type="button">Detener</button></div>
+  <button class="tbtn" id="zapbtn" type="button" aria-expanded="false">Zaaps</button>
   <button class="tbtn" id="invbtn" type="button">Invitador de grupo</button>
   <button class="tbtn hot" id="ovbtn" type="button">Overlay</button>
   <button class="tbtn" id="notif" type="button">Activar avisos</button>
@@ -527,6 +539,7 @@ footer{color:var(--faint);font-size:.76rem;padding-bottom:24px}
   <div id="v-links" hidden><div id="linkg" style="display:grid;gap:18px"></div></div>
   <footer>Rutina base, no regla. Tu avance se guarda en este navegador. Almanax cargado hasta el 23 de diciembre de 2026. Íconos de DofusDB y dofusdude.</footer>
 </main>
+<div class="zpop" id="zpop" hidden></div>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -623,7 +636,7 @@ const WEEKS={
   0:[ALMT,{k:"alm",t:"Comprar ofrendas de esta semana",m:45,w:"mañana o tarde",id:"cof"},CRI(),mis()],
   2:[ALMT,mis(),{k:"mag",t:"Prioridad: dejar listo el team para el bonus",m:60,w:"1 h",id:"pre",sub:["Revisión breve de sets de prospección","Subir mascotas al nivel 100"]},KAM(["Comprar lo que vas a craftear con el bonus"])],
   3:[ALMT,{k:"maz",t:"Farmear 50 Dientes de cervelicoso",m:60,w:"Cervecería del Rey Dazahk · 1 h",id:"die",sub:["Hacer los retos en cada combate"]},mis()],
-  4:[ALMT,{k:"cri",t:"Apenas despiertes: oficios con bonus",m:120,w:"desde las 06:00 · 2 h",id:"bon",sub:["Aplicar todas las recetas","Comprar lo que falte antes de que suba","Subir zapatero, del 100 al 180","Subir criador","Llenar todos los cercados"]},{k:"kam",t:"Farm con bonus de drop y el team",m:240,w:"tarde · 4 h",id:"frm",sub:["Buscar anomalía con buena zona","Si no hay, zona 200"]},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer"}],
+  4:[ALMT,{k:"cri",t:"Apenas despiertes: oficios con bonus",m:120,w:"desde las 07:00 · 2 h",id:"bon",sub:["Aplicar todas las recetas","Comprar lo que falte antes de que suba","Subir zapatero, del 100 al 180","Subir criador","Llenar todos los cercados"]},{k:"kam",t:"Farm con bonus de drop y el team",m:240,w:"tarde · 4 h",id:"frm",sub:["Buscar anomalía con buena zona","Si no hay, zona 200"]},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer"}],
   5:[ALMT,{k:"kam",t:"Seguir farmeando con bonus",m:180,w:"antes de verte con tu novia",id:"frm2"},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer2"}],
   6:[ALMT,{k:"alm",t:"Comprar ofrendas del 9 al 23 nov",m:45,w:"tarde-noche",id:"cof2"},OFR(),{k:"cri",t:"Cruzas con bonus activo",m:30,w:"tarde-noche",id:"crz"}]
  },
@@ -675,8 +688,8 @@ const short=d=>d.getDate()+" "+MES[d.getMonth()];
 let now=new Date(), wk=monOf(now);
 const nowKey=()=>iso(monOf(new Date()));
 const alm=d=>ALM.find(a=>a[0]===d);
-/* El Almanax cambia a las 19:00 de Chile: hora del servidor UTC+2 */
-const ALM_UTC=2;
+/* El Almanax cambia a las 20:00 de Chile: hora del servidor UTC+1 */
+const ALM_UTC=1;
 const almDay=()=>{const d=new Date(Date.now()+ALM_UTC*3600e3);return d.getUTCFullYear()+"-"+String(d.getUTCMonth()+1).padStart(2,"0")+"-"+String(d.getUTCDate()).padStart(2,"0")};
 const skey=m=>"tk-v2-"+iso(m);
 let S=get(skey(wk),{});
@@ -721,7 +734,8 @@ async function openOverlay(){
   const w=el("div","ovw"),m=el("div");m.id="ovm";m.style.cssText="display:grid;gap:8px";
   const nt=el("textarea","note");ovNote=nt;nt.rows=2;nt.placeholder="Nota del día";nt.setAttribute("aria-label","Nota del día");nt.value=get("tk-nota-"+iso(new Date()),"");
   nt.addEventListener("input",()=>{const ds=iso(new Date());put("tk-nota-"+ds,nt.value);const o=$("nota-"+ds);if(o)o.value=nt.value});
-  w.append(m,nt);d.body.append(w);
+  const zd=el("details","ovbox");zd.append(el("summary",null,"Zaaps"),zaapUi(async(t,b)=>{const lab=b.querySelector("span"),old=lab.textContent;try{await ov.navigator.clipboard.writeText(t);lab.textContent="Copiado"}catch(e){lab.textContent="No pude copiar"}setTimeout(()=>{lab.textContent=old},1200)}));
+  w.append(m,zd,nt);d.body.append(w);
   ov.addEventListener("pagehide",()=>{ov=null;ovNote=null;$("ovbtn").textContent="Overlay"});
   $("ovbtn").textContent="Cerrar overlay";ovRender();
 }
@@ -971,6 +985,24 @@ function tick(){
 }
 $("runs").onclick=stop;
 $("ovbtn").onclick=openOverlay;
+/* Zaaps: zona, nombre, x, y. Datos de DofusDB. El comando se arma con ZAAP_CMD */
+const ZAAP_CMD=(x,y)=>"/zaap "+x+","+y;
+const ZAAPS=[["Amakna","Castillo de Amakna",3,-5],["Amakna","La montaña de los crujidores",-5,-8],["Amakna","Linde del Bosque Maléfico",-1,13],["Amakna","Llanura de los escarahojas",-1,24],["Amakna","Pueblo de Amakna",-2,0],["Amakna","Puerto de Madrestam",7,-4],["Amakna","Rincón de los Jalatós",5,7],["Animatopía","Animatopía",-67,29],["Anutropía","Crisol de los afortunados",-6,-1],["Archipiélago de las escamas","Cocuzko",-83,-15],["Archipiélago de Valonia","Arboleda nevada",39,-82],["Archipiélago wabbit","Isla Zanahowia",25,-4],["Archipiélago wabbit","Laboratorios abandonados",27,-14],["Astrub","Ciudad de Astrub",5,-18],["Bahía de Sufokia","Ribera del golfo sufokeño",10,22],["Bahía de Sufokia","Sufokia",13,26],["Bonta","Corazón Inmaculado",-31,-56],["Brakmar","Coraza",-26,37],["Dimensión obscura","Dimensión obscura",3,1],["Dimensiones de los Jinetes","Heridas de Guerra",1,-1],["Feria del Trool","Feria del Trool",-11,-36],["Incarnam","Cementerio",3,0],["Isla de Frigost","Burgo",-78,-41],["Isla de Frigost","Cuna de Alma",-57,-73],["Isla de Frigost","Entrada del castillo de Kontatrás",-67,-77],["Isla de Frigost","Peñón de los Albatroces",-83,-60],["Isla de Frigost","Pueblo Sepultado",-77,-73],["Isla de Grobe","Monte de las Tumbas",40,-44],["Isla de Moon","Playa Tortuga",35,12],["Isla de Otomai","Pueblo costero",-46,18],["Isla de Otomai","Pueblo de la canopea",-54,16],["Isla de Otomai","Pueblo de los zoths",-53,18],["Isla de Pandala","Pueblo de Pandala",20,-29],["Isla del Minotauroro","Isla del Minotauroro",-42,-18],["Isla Kéfriho","Llanura de Kéfriho",-54,-42],["Islotes del mar Rano","Isla Rokartón",21,6],["Landas de Sidimote","Camino de las caravanas",-25,12],["Landas de Sidimote","Tierras Desacralizadas",-15,25],["Llanuras de Cania","Caminos rocosos",-20,-20],["Llanuras de Cania","Campos de Cania",-27,-36],["Llanuras de Cania","Lago de Cania",-3,-42],["Llanuras de Cania","Llanura de los puerkazos",-5,-23],["Llanuras de Cania","Llanuras Rocosas",-17,-47],["Llanuras de Cania","Pueblo de los dopeuls",-34,-8],["Llanuras de Cania","Pueblo de los kanigs",0,-56],["Llanuras de Cania","Pueblo de los salteadorillos",-15,-23],["Llanuras de Cania","Sierra de Cania",-13,-28],["Montaña de los koalaks","Cementerio primitivo",-12,19],["Montaña de los koalaks","Pueblo de los ganaderos",-16,1],["Osavora","Osabana",9,8],["Pesadilla de los Devastadores","Pesadilla de los Devastadores",4,2],["Picahari","Ciudad olvidada",8,-73],["Picahari","Dunas de los Huesos",15,-58],["Sramvil","Callejas de los canales Keleto",10,3],["Wukin y wukang","Reino de Tinta",-4,-1],["Xelorium","Caminos del Ayer",0,8],["Zurcalia","Piedras de elevación",2,-8]];
+const znz=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+function zaapUi(put2,done){
+  const box=el("div","zbox"),q=el("input","zq");q.type="search";q.placeholder="Buscar zaap";q.setAttribute("aria-label","Buscar zaap");const l=el("div","zlist");
+  const draw=()=>{const n=znz(q.value.trim());l.textContent="";let a="",c=0;ZAAPS.filter(z=>!n||znz(z[0]+" "+z[1]).includes(n)).sort((u,v)=>n?0:u[0].localeCompare(v[0],"es")).forEach(z=>{
+    if(z[0]!==a){a=z[0];l.append(el("div","zh",a))}c++;
+    const b=el("button","zi");b.type="button";b.append(el("span",null,z[1]),el("b",null,z[2]+","+z[3]));b.onclick=()=>{put2(ZAAP_CMD(z[2],z[3]),b,z[1]);done&&done()};l.append(b)});
+    if(!c)l.append(el("p","zn","Sin resultados"))};
+  q.oninput=draw;q.onkeydown=e=>{if(e.key==="Enter"){const f=l.querySelector(".zi");if(f)f.click()}};draw();box.append(q,l);box.focusQ=()=>q.focus();return box;
+}
+const zp=$("zpop"),zb=$("zapbtn");
+const zui=zaapUi((t)=>copy(t),()=>zToggle(false));zp.append(zui);
+function zToggle(v){zp.hidden=!v;zb.setAttribute("aria-expanded",v);if(v)zui.focusQ()}
+zb.onclick=e=>{e.stopPropagation();zToggle(zp.hidden)};
+document.addEventListener("click",e=>{if(!zp.hidden&&!zp.contains(e.target))zToggle(false)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")zToggle(false)});
 const INVITE="/invite bloody-rabbit ; /invite etilya ; /invite sra-fresia ; /invite natyss";
 $("invbtn").onclick=()=>copy(INVITE);
 if(!window.documentPictureInPicture)$("ovbtn").hidden=true;
