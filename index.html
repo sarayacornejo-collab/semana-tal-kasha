@@ -13,10 +13,10 @@
 <style>
 /* Layout: mesa de aventurero. Barra de vidrio con pestañas segmentadas, banda Hoy con el huevo como anillo, tablero semanal de tarjetas metálicas. Claro y oscuro comparten estructura y cambian toda la superficie. */
 :root{
-  --bg:#f0f2f5; --panel:#ffffff; --panel2:#f6f8fa; --sunk:#edf0f3; --slot:#e4e8ed; --ink:#101820; --mute:#44505c; --faint:#647180; --line:#d7dde4; --sh:rgb(255 255 255 / .55); --rim:rgb(16 24 32 / .3);
-  --green:#3c6a14; --ok:#4f8f1d; --orange:#8f5600; --fill:#f0a81e; --fill-hi:#ffbd3f; --on-fill:#201400; --today:#fff7e3;
-  --band:#fbfcfd; --band2:#eceff3; --band-a:rgb(240 168 30 / .2); --band-b:rgb(96 156 32 / .16);
-  --hero:#ffffff; --hero2:#f6f8fa; --hero-ink:#101820; --hero-mute:#44505c; --hero-line:#d7dde4; --hero-sunk:#edf0f3;
+  --bg:#e8e1d0; --panel:#f7f2e5; --panel2:#f0eada; --sunk:#ebe4d2; --slot:#ddd5c0; --ink:#1c1a14; --mute:#4a4435; --faint:#685f4c; --line:#d2c8b1; --sh:rgb(255 252 240 / .5); --rim:rgb(60 45 10 / .3);
+  --green:#3c6a14; --ok:#4f8f1d; --orange:#8f5600; --fill:#f0a81e; --fill-hi:#ffbd3f; --on-fill:#201400; --today:#fbeecb;
+  --band:#efe9d9; --band2:#e6dfcc; --band-a:rgb(240 168 30 / .2); --band-b:rgb(96 156 32 / .16);
+  --hero:#f5efe1; --hero2:#eee7d6; --hero-ink:#1c1a14; --hero-mute:#4a4435; --hero-line:#d2c8b1; --hero-sunk:#e8e1cf;
   --t-mis:#4a6b00; --t-cri:#985a00; --t-sue:#7038a8; --t-maz:#b0332a; --t-alm:#866100; --t-kam:#0b716b; --t-mag:#1b6890;
   --b-bot:#866100; --b-xp:#4a6b00; --b-ret:#985a00; --b-ofi:#1b6890; --b-cri:#a8336f; --b-esp:#7038a8;
   --shadow:0 1px 2px rgb(16 24 32 / .06), 0 10px 28px rgb(16 24 32 / .07);
@@ -455,6 +455,23 @@ h1{font-size:1.02rem;letter-spacing:.02em}
 .zpop{box-shadow:0 18px 50px rgb(0 0 0 / .3)}
 .note{border-radius:9px}
 footer{padding-top:6px}
+/* Actividad propia */
+.addact{margin:2px 8px 6px;border:1px dashed var(--line);background:none;border-radius:8px;padding:5px 9px;font:600 .76rem var(--f-b);color:var(--mute);text-align:left}
+.addact:hover{border-color:var(--fill);color:var(--ink)}
+.actf{margin:0 8px 8px;padding:9px;border:1px solid var(--fill);border-radius:10px;background:var(--panel);display:grid;gap:7px;position:relative;z-index:5}
+.actf label{display:grid;gap:2px;font-size:.7rem;color:var(--mute)}
+.actf select,.actf input[type=text],.actf input[type=number]{width:100%;min-width:0;border:1px solid var(--line);border-radius:7px;background:var(--sunk);color:var(--ink);padding:5px 7px;font:500 .82rem var(--f-b)}
+.actq{display:flex;flex-wrap:wrap;gap:4px}
+.actq .chip{padding:2px 8px;font-size:.72rem}
+.actf .yah{display:flex;grid-template-columns:none;align-items:center;gap:7px;font-size:.78rem;color:var(--ink)}
+.actb{display:flex;gap:6px}
+.actb .big{padding:6px 12px;font-size:.82rem}
+.zadd{margin-top:8px;font-size:.8rem}
+.zadd summary{cursor:pointer;color:var(--mute);font-weight:600}
+.zaddf{display:grid;grid-template-columns:minmax(0,1fr) 54px 54px auto;gap:5px;margin-top:6px}
+.zaddf input{min-width:0;border:1px solid var(--line);border-radius:7px;background:var(--sunk);color:var(--ink);padding:5px 6px;font:500 .8rem var(--f-b)}
+.snt{display:flex;gap:14px;align-items:center}
+.snt>div{flex:1;min-width:0}
 /* Subtareas propias */
 .addb{border:1px solid var(--line);background:var(--panel);border-radius:6px;color:var(--mute);font:700 .8rem var(--f-m);line-height:1.3;padding:0 7px}.addb:hover{border-color:var(--c);color:var(--ink)}.noop{font-size:.8rem;line-height:1.3;padding:0 7px}
 .sub li.xs label{grid-template-columns:minmax(0,1fr) auto 18px}
@@ -526,7 +543,7 @@ footer{padding-top:6px}
   .rtd{grid-template-columns:minmax(0,1fr)}
   .rdays{gap:2px;height:150px}
   .rlead{font-size:1.15rem}
-  .snf input,.subin,.capc input{font-size:16px}
+  .snf input,.subin,.capc input,.actf select,.actf input[type=text],.actf input[type=number],.zaddf input{font-size:16px}
 }
 </style>
 
@@ -628,7 +645,7 @@ footer{padding-top:6px}
     <div style="display:grid;gap:18px">
       <section class="card">
         <div class="snh">
-          <div><div class="eyeb">Sueños Infinitos · tu meta</div><div class="crnum"><b id="snhave">0</b> <span id="sngoal"></span></div><div class="bar" style="margin-top:7px"><i id="snbar"></i></div><p class="snp" id="snp"></p></div>
+          <div class="snt"><span id="snico"></span><div><div class="eyeb">Sueños Infinitos · tu meta</div><div class="crnum"><b id="snhave">0</b> <span id="sngoal"></span></div><div class="bar" style="margin-top:7px"><i id="snbar"></i></div><p class="snp" id="snp"></p></div></div>
           <div class="rtot" id="snk" style="margin:0"></div>
         </div>
         <div class="snset"><label class="pj">Qué juntas<input id="snname" maxlength="30" style="width:150px;text-align:left"></label><label class="pj">Meta<input id="sngo" inputmode="numeric"></label><label class="pj">Ya tenía<input id="snh0" inputmode="numeric"></label></div>
@@ -806,7 +823,7 @@ const WEEKS={
   5:[ALMT,{k:"kam",t:"Seguir farmeando con bonus",m:180,w:"antes de verte con tu novia",id:"frm2"},{k:"cri",t:"Pasada por cercados cada 3–4 h",m:20,w:"20 min",id:"cer2"}],
   6:[ALMT,{k:"alm",t:"Comprar ofrendas del 9 al 23 nov",m:45,w:"tarde-noche",id:"cof2"},OFR(),{k:"cri",t:"Cruzas con bonus activo",m:30,w:"tarde-noche",id:"crz"}]
  },
- "2026-11-09":{3:[ALMT,{k:"alm",t:"Farmear 50 Linternas de tritáceo",m:60,w:"botín +50% · 1 h",id:"lin",sub:["Cazar Tritáceos y Brethones"]},mis()],6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 24 nov al 8 dic",m:45,w:"antes de que suban",id:"cof3"}]},
+ "2026-11-09":{2:[ALMT,mis(),{k:"mis",t:"Logros de Haluín full",m:60,w:"1 h",id:"hal"},KAM()],3:[ALMT,{k:"alm",t:"Farmear 50 Linternas de tritáceo",m:60,w:"botín +50% · 1 h",id:"lin",sub:["Cazar Tritáceos y Brethones"]},mis()],6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 24 nov al 8 dic",m:45,w:"antes de que suban",id:"cof3"}]},
  "2026-11-30":{6:[ALMT,OFR(),{k:"alm",t:"Comprar ofrendas del 9 al 23 dic",m:45,w:"antes de que suban",id:"cof4"}]}
 };
 const SPECIAL=[
@@ -866,7 +883,38 @@ function slot(icon,color,size){
   const im=new Image();im.alt="";im.onload=()=>w.classList.add("ok");im.onerror=()=>im.remove();im.src=icon;w.append(im);return w;
 }
 const tslot=(k,s)=>slot(T[k].i,T[k].c,s);
-const tasksOf=(m,di)=>(WEEKS[iso(m)]&&WEEKS[iso(m)][di])||BASE[di];
+const pKey=m=>"tk-plus-"+m;
+const plus=(m,di)=>(get(pKey(iso(m)),{})[di]||[]).map(x=>({k:x.k,t:x.t,m:x.m,w:fmt(x.m),id:"u"+x.i,own:x.i}));
+const tasksOf=(m,di)=>((WEEKS[iso(m)]&&WEEKS[iso(m)][di])||BASE[di]).concat(plus(m,di));
+/* Ideas por categoría para crear una actividad propia */
+const SUG={
+ mis:["Logros de Haluín","Misiones de alineamiento","Cadena de un Dofus","Búsquedas del tesoro","Misiones repetibles","Logros de exploración","Logros de monstruos","Misiones de temporada","Misiones de una zona nueva","Logros de oficios","Subir un personaje secundario"],
+ cri:["Capturar monturas salvajes","Hacer cruzas","Subir monturas: nivel, amor y madurez","Clonar estériles","Vender monturas","Reponer carburante","Ordenar establo y certificados","Comprar objetos de crianza"],
+ kam:["Mercadillo: comprar, vender y ajustar precios","Romper objetos por runas","Vender runas","Cobrar almanichas","Revisar inventarios","Farm de recursos","Recolección con oficios","Craftear para vender","Búsquedas del tesoro","Encargos de gremio","Mercenario en búsqueda de grupo","Reventa de recursos","Kolizeum","Farm con el team"],
+ sue:["Run completa","Run corta de práctica","Probar otra composición","Revisar recompensas y retazos"],
+ mag:["Maguear para vender","Maguear un set propio","Subir oficio de mago","Craftear tanda para maguear","Buscar objetos rentables","Intentos de exo","Comprar runas"],
+ maz:["Mazmorra con logro","Se busca","Mazmorra con ídolos","Farm de mazmorra por drop","Ayudar al gremio en una mazmorra","Archimonstruos","Mazmorra en dúo","Pasar una mazmorra con los secundarios"],
+ alm:["Comprar ofrendas","Repartir ofrendas","Farmear una ofrenda cara"]
+};
+function addAct(m,di,k,t,min,done){
+  const a=get(pKey(iso(m)),{}),i=Date.now().toString(36).slice(-6);(a[di]=a[di]||[]).push({i,k,t,m:min});put(pKey(iso(m)),a);
+  if(done){const tid="u"+i+"-"+di+"@"+iso(m);putSes(tid,{s:[min*60],c:1});setDone(tid,true);const L=get("tk-log",[]);L.unshift({d:iso(addD(m,di)),k,t,s:min*60,m:min,n:1,tid});put("tk-log",L.slice(0,400))}
+  refresh();toast(done?"Registrada: "+t+" · "+fmt(min):"Actividad agregada: "+t);
+}
+function delAct(m,di,i){const a=get(pKey(iso(m)),{}),tid="u"+i+"-"+di+"@"+iso(m);a[di]=(a[di]||[]).filter(x=>x.i!==i);put(pKey(iso(m)),a);put("tk-log",get("tk-log",[]).filter(l=>l.tid!==tid));setDone(tid,false);if(R&&R.tid===tid)stop();refresh()}
+function actForm(day,di,btn){
+  const f=el("div","actf"),sel=el("select"),tx=el("input"),dl=el("datalist"),mn=el("input"),q=el("div","actq"),ya=el("input"),yl=el("label","yah"),bb=el("div","actb"),ok=el("button","big","Agregar"),no=el("button","ghost","Cancelar");
+  Object.entries(T).forEach(([k,v])=>{const o=el("option",null,v.n);o.value=k;sel.append(o)});sel.value="kam";sel.setAttribute("aria-label","Categoría");
+  dl.id="sug-"+di;tx.type="text";tx.setAttribute("list",dl.id);tx.maxLength=70;tx.placeholder="Elige una idea o escribe la tuya";
+  const fill=()=>{dl.textContent="";SUG[sel.value].forEach(s=>{const o=el("option");o.value=s;dl.append(o)})};sel.onchange=fill;fill();
+  mn.type="number";mn.min=5;mn.max=600;mn.step=5;mn.value=60;[30,60,90,120].forEach(v=>{const c=el("button","chip",fmt(v));c.type="button";c.onclick=()=>{mn.value=v};q.append(c)});
+  ya.type="checkbox";ya.className="cb";ya.style.setProperty("--c","var(--ok)");yl.append(ya,"Ya la hice: registrar ese tiempo");
+  const l1=el("label",null,"Categoría"),l2=el("label",null,"Actividad"),l3=el("label",null,"¿Cuánto tiempo? (minutos)");l1.append(sel);l2.append(tx,dl);l3.append(mn);
+  ok.type=no.type="button";no.onclick=()=>{f.remove();btn.hidden=false};
+  ok.onclick=()=>{const t=tx.value.trim(),m=Math.round(+mn.value||0);if(!t){tx.focus();toast("Ponle un nombre a la actividad");return}if(m<1){mn.focus();toast("Dime cuánto tiempo");return}addAct(wk,di,sel.value,t,m,ya.checked)};
+  tx.onkeydown=e=>{if(e.key==="Enter")ok.click()};
+  bb.append(ok,no);f.append(l1,l2,l3,q,yl,bb);btn.hidden=true;btn.after(f);tx.focus();
+}
 function cb(id,color,after){
   const i=el("input","cb");i.type="checkbox";i.id=id;i.checked=!!S[id];i.style.setProperty("--c","var("+color+")");
   i.addEventListener("change",()=>{S[id]=i.checked;put(skey(wk),S);count();today();if(after)after(i.checked)});return i;
@@ -967,6 +1015,7 @@ function board(){
       const meta=el("div","tmeta");meta.append(t.w);
       const tid=id+"@"+iso(wk),o={k:t.k,t:t.t,m:t.m,tid},se=getSes(tid),withSes=t.id==="mis"||se.s.length||(R&&R.tid===tid);
       if(t.id==="alm"){const c=entCount(iso(addD(wk,di)));if(c.n&&c.n<c.t){const a=el("a","entc",c.n+"/"+c.t);a.href="#almanax";a.onclick=()=>{ed=iso(addD(wk,di))};meta.append(a)}}
+      if(t.own){const d=el("button","sx","×");d.type="button";d.title="Quitar esta actividad";d.onclick=()=>delAct(wk,di,t.own);meta.append(d)}
       if(!withSes){const p=el("button","play","▶");p.type="button";p.title="Medir tiempo";p.dataset.tid=tid;p.addEventListener("click",()=>toggle(o));meta.append(p)}
       const cw=el("div");cw.append(tx,meta);
       row.append(t.url?extA(t.url,tslot(t.k)):tslot(t.k),cw,cb(id,T[t.k].c,v=>{if(v)closeTask(o);else reopen(tid)}));li.append(row);
@@ -981,6 +1030,7 @@ function board(){
       ul.append(li);
     });
     day.append(dh,ul);
+    const ab=el("button","addact","+ Actividad");ab.type="button";ab.onclick=()=>actForm(day,di,ab);day.append(ab);
     const sp=SPECIAL.find(x=>x.f&&x.d===ds);
     if(sp){const f=el("div","flag");f.append(el("b",null,sp.f));day.append(f)}
     const nt=el("textarea","note");nt.id="nota-"+ds;nt.rows=1;nt.placeholder="Nota del día";nt.setAttribute("aria-label","Nota del "+name);nt.value=get("tk-nota-"+ds,"");
@@ -1168,11 +1218,15 @@ const ZAAPS=[["Amakna","Castillo de Amakna",3,-5],["Amakna","La montaña de los 
 const znz=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 function zaapUi(put2,done){
   const box=el("div","zbox"),q=el("input","zq");q.type="search";q.placeholder="Buscar zaap";q.setAttribute("aria-label","Buscar zaap");const l=el("div","zlist");
-  const draw=()=>{const n=znz(q.value.trim());l.textContent="";let a="",c=0;ZAAPS.filter(z=>!n||znz(z[0]+" "+z[1]).includes(n)).sort((u,v)=>n?0:u[0].localeCompare(v[0],"es")).forEach(z=>{
+  const draw=()=>{const n=znz(q.value.trim());l.textContent="";let a="",c=0;ZAAPS.concat(get("tk-zaaps",[]).map(z=>["Mis zaaps",...z])).filter(z=>!n||znz(z[0]+" "+z[1]).includes(n)).sort((u,v)=>n?0:u[0].localeCompare(v[0],"es")).forEach(z=>{
     if(z[0]!==a){a=z[0];l.append(el("div","zh",a))}c++;
     const b=el("button","zi");b.type="button";b.append(el("span",null,z[1]),el("b",null,z[2]+","+z[3]));b.onclick=()=>{put2(ZAAP_CMD(z[2],z[3]),b,z[1]);done&&done()};l.append(b)});
     if(!c)l.append(el("p","zn","Sin resultados"))};
-  q.oninput=draw;q.onkeydown=e=>{if(e.key==="Enter"){const f=l.querySelector(".zi");if(f)f.click()}};draw();box.append(q,l);box.focusQ=()=>q.focus();return box;
+  q.oninput=draw;q.onkeydown=e=>{if(e.key==="Enter"){const f=l.querySelector(".zi");if(f)f.click()}};draw();
+  const ad=el("details","zadd"),af=el("div","zaddf"),zn=el("input"),zx=el("input"),zy=el("input"),zo=el("button","ghost","Agregar");ad.append(el("summary",null,"Agregar un zaap que falte"));
+  zn.placeholder="Nombre";zx.placeholder="x";zy.placeholder="y";zx.inputMode=zy.inputMode="text";zo.type="button";
+  zo.onclick=()=>{const nm=zn.value.trim(),x=parseInt(zx.value,10),y=parseInt(zy.value,10);if(!nm||isNaN(x)||isNaN(y))return;put("tk-zaaps",[...get("tk-zaaps",[]),[nm,x,y]]);zn.value=zx.value=zy.value="";q.value=nm;draw()};
+  af.append(zn,zx,zy,zo);ad.append(af);box.append(q,l,ad);box.focusQ=()=>q.focus();return box;
 }
 const zp=$("zpop"),zb=$("zapbtn");
 const zui=zaapUi((t)=>copy(t),()=>zToggle(false));zp.append(zui);
@@ -1481,7 +1535,7 @@ const kd=$("kdrop");["dragenter","dragover"].forEach(v=>kd.addEventListener(v,e=
 kd.addEventListener("drop",e=>kImg(e.dataTransfer.files[0]));
 addEventListener("paste",e=>{if($("v-kamas").hidden)return;const it=[...(e.clipboardData?e.clipboardData.items:[])].find(i=>i.type.startsWith("image/"));if(it){e.preventDefault();kImg(it.getAsFile())}});
 /* Sueños Infinitos: bitácora de runs y meta */
-const snGet=()=>({name:"Recurso",goal:0,have:0,runs:[],...get("tk-suenos",{})});
+const snGet=()=>({name:"Retazos",goal:20000,have:0,runs:[],...get("tk-suenos",{})});
 const snN=n=>Math.round(n).toString().replace(/\B(?=(\d{3})+$)/g,".");
 let snM="r";
 function sn(){
@@ -1495,7 +1549,7 @@ function sn(){
   else{const avg=sR/rs.filter(r=>+r.r).length,left=Math.ceil((goal-have)/avg),wk=Math.ceil(left/2),dt=addD(new Date(),wk*7);
     p.append("Te faltan ",el("b",null,snN(goal-have)),". A tu promedio de ",el("b",null,snN(avg)+" por run")," son ",el("b",null,left+(left===1?" run":" runs")),": con 2 por semana llegas cerca del ",el("b",null,short(dt)+" "+dt.getFullYear()),".")}
   const k=$("snk");k.textContent="";
-  [[String(n),"Runs anotadas"],[n?String(Math.max(...rs.map(r=>+r.p||0))):"—","Mejor piso"],[kFmt(sK),"Kamas en total"],[sM?kFmt(sK/(sM/60)):"—","Kamas por hora"],[n?fmt(sM/n):"—","Duración media"]].forEach(([v,l])=>{const c=el("div","rk");c.append(el("b",null,v),el("span",null,l));k.append(c)});
+  [[String(n),"Runs anotadas","sue"],[n?String(Math.max(...rs.map(r=>+r.p||0))):"—","Mejor piso","maz"],[kFmt(sK),"Kamas en total","kam"],[sM?kFmt(sK/(sM/60)):"—","Kamas por hora","kam"],[n?fmt(sM/n):"—","Duración media","sue"]].forEach(([v,l,ic])=>{const c=el("div","stat");c.style.setProperty("--c","var(--orange)");c.append(tslot(ic,"sm"),el("b",null,v),el("span",null,l));k.append(c)});
   $("snrl").textContent=nm;$("snth").textContent=nm;
   const md=$("snmode");md.textContent="";[["r",nm],["k","Kamas"],["p","Piso"]].forEach(([q,l])=>{const b=el("button","chip",l);b.type="button";b.setAttribute("aria-pressed",q===snM);b.onclick=()=>{snM=q;sn()};md.append(b)});
   const chn=$("snch"),last=rs.slice(-16),mx=Math.max(1,...last.map(r=>+r[snM]||0));chn.textContent="";chn.hidden=!n;
@@ -1518,7 +1572,7 @@ addEventListener("hashchange",view);
 const tb=$("theme"),modes=["auto","claro","oscuro"];let tm=get("tk-tema","auto");
 const ap=()=>{const r=document.documentElement;if(tm==="auto")r.removeAttribute("data-theme");else r.dataset.theme=tm==="claro"?"light":"dark";tb.textContent="Tema: "+tm;put("tk-tema",tm);if(ov){const q=ov.document.documentElement;if(r.dataset.theme)q.dataset.theme=r.dataset.theme;else q.removeAttribute("data-theme")}};
 tb.onclick=()=>{tm=modes[(modes.indexOf(tm)+1)%3];ap()};ap();
-$("almslot").replaceWith(tslot("alm","lg"));
+$("almslot").replaceWith(tslot("alm","lg"));$("snico").replaceWith(tslot("sue","lg"));
 const sd=$("dates");sd.append(...SPECIAL.filter(x=>x.d>=iso(new Date())&&!x.hide).map(x=>{const d=el("span","date");d.append(el("b",null,x.l)," "+x.t);return d}));
 $("linkg").append(...LINKS.map(([t,l])=>{const c=el("section","card");c.append(el("h2",null,t));const g=el("div","lgrid");l.forEach(([n,d,u])=>{const a=el("a","lk");a.href=u;a.target="_blank";a.rel="noopener";a.append(el("b",null,n),el("span",null,d),el("small",null,new URL(u).hostname.replace("www.","")));g.append(a)});c.append(g);return c}));
 nstate();view();board();ofr();log();today();tick();cri();resumen();sn();syncUi();syncNow();
